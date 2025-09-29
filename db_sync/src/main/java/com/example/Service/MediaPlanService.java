@@ -38,7 +38,7 @@ public class MediaPlanService {
     }
 
     public void updateMediaPlanInMemory(MediaPlan mp) {
-        // Changed to use BigInteger comparison to match model
+       
         if (mp.getBids() != null && mp.getBids().compareTo(BigInteger.ZERO) > 0) {
             InMemoryStore.mediaPlanMap.put(mp.getId(), mp);
             log.debug("Updated in-memory media plan: {}", mp.getId());
@@ -50,7 +50,6 @@ public class MediaPlanService {
     @Transactional
     public void persistMediaPlans() {
         InMemoryStore.mediaPlanMap.values().stream()
-                // Changed to use BigInteger comparison to match model
                 .filter(mp -> mp.getBids() != null && mp.getBids().compareTo(BigInteger.ZERO) > 0)
                 .forEach(mp -> {
                     try {
