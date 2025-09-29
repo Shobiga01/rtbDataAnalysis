@@ -1,0 +1,54 @@
+
+rtbagg:
+  brokerlist: ${RTBAGG_BROKERLIST:kafka:9092}
+  mysqlhost: ${RTBAGG_MYSQLHOST:localhost}
+  mysqlport: ${RTBAGG_MYSQLPORT:3306}
+  mysqldbname: ${RTBAGG_MYSQLDBNAME:rtb4free}
+  mysqluser: ${RTBAGG_MYSQLUSER:root}
+  mysqlpassword: ${RTBAGG_MYSQLPASSWORD:password}
+  esregionurl: ${RTBAGG_ESREGIONURL:http://localhost:9200}
+  esaggurl: ${RTBAGG_ESAGGURL:${RTBAGG_ESREGIONURL:http://localhost:9200}}
+  esaggindex: ${RTBAGG_ESAGGINDEX:postbackeventsagg}
+  disable-agg-send: ${RTBAGG_DISABLEAGGSEND:false}
+  interval-secs: ${RTBAGG_INTERVALSECS:300000}
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: rtb-videoagg-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+
+  datasource:
+    url: jdbc:mysql://34.97.103.138:3306/rtb4free
+    username: c1x_user
+    password: c1x_user
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+  elasticsearch:
+    uris: ${RTBAGG_ESREGIONURL:http://localhost:9200}
+    username: ${RTBAGG_ESUSERNAME:}
+    password: ${RTBAGG_ESPASSWORD:}
+    connection-timeout: 5s
+    socket-timeout: 30s
+    max-connections: 30
+    max-connections-per-route: 10
+
+logging:
+  level:
+    com.example.attribution: DEBUG
+    org.springframework.data.elasticsearch: INFO

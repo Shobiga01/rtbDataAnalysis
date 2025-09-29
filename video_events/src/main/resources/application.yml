@@ -1,0 +1,24 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+#    url: jdbc:mysql://web_db/rtb4free
+    url: jdbc:mysql://34.97.103.138:3306/rtb4free
+    username: c1x_user
+    password: c1x_user
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: rtb-videoagg-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+app:
+  es-host: http://localhost:9200
+  es-video-index: video_events
+  es-agg-video-index: videoagg
+
+  flush-interval-ms: 300000
