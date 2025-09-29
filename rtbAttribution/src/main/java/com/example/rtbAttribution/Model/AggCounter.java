@@ -15,10 +15,10 @@ import java.time.Instant;
  * Matches Go's AggCounter: Keys + counts + metadata.
  */
 @Data
-@Document(indexName = "#{T(java.time.format.DateTimeFormatter).ofPattern('yyyy.MM.dd').format(T(java.time.Instant).now())}")  // Dynamic daily index (or use "postbackeventsagg-*")
+@Document(indexName = "#{T(java.time.format.DateTimeFormatter).ofPattern('yyyy.MM.dd').format(T(java.time.Instant).now())}") 
 public class AggCounter {
 
-    @Id  // Generated doc ID (e.g., campaign+creative+...+nano)
+    @Id  
     private String id;
 
     @JsonProperty("campaign_id")
